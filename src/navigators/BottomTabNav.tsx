@@ -5,11 +5,12 @@ import Home from '../screens/Home';
 import Search from '../screens/Search';
 import MyPage from '../screens/MyPage';
 import React from 'react';
+
 const Tab = createBottomTabNavigator();
 
 function BottomTabNav() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Home">
       <Tab.Screen name="EarningHistory" component={EarningHistory} />
       <Tab.Screen name="Earning" component={Earning} />
       <Tab.Screen name="Home" component={Home} />
