@@ -6,7 +6,7 @@ export default {
   coral: '#f65f53',
   greyishBrown: '#3f3f3f',
   pinkishGrey: '#cecece',
-  beigh: '#f9dedd',
+  beige: '#f9dedd',
   coralTwo: '#f95f53',
   warmGrey: '#9e9e9e',
   veryLightPink2: '#fceaea',
