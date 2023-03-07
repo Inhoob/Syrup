@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ViewStyle} from 'react-native';
-
+import {Pressable} from 'react-native';
 interface Props {
   children: React.ReactNode;
   width: number;
@@ -8,6 +8,8 @@ interface Props {
   borderRadius?: number;
   shadowColor?: string;
   backgroundColor?: string;
+  onPress?: () => void;
+  style?: ViewStyle;
 }
 
 function RoundedCard({
@@ -17,6 +19,8 @@ function RoundedCard({
   borderRadius,
   shadowColor,
   backgroundColor,
+  onPress,
+  style,
 }: Props) {
   const roundedCard = {
     borderRadius: borderRadius || 20,
@@ -31,8 +35,13 @@ function RoundedCard({
     padding: 20,
     width: width,
     height: height,
+    ...style,
   };
-  return <View style={roundedCard}>{children}</View>;
+  return (
+    <Pressable onPress={onPress}>
+      <View style={roundedCard}>{children}</View>
+    </Pressable>
+  );
 }
 
 export default RoundedCard;
