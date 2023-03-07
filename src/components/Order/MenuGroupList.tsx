@@ -25,7 +25,7 @@ function MenuGroupList({data, onPress, menuGroup}: Props) {
       horizontal
       data={data}
       renderItem={renderItem}
-      keyExtractor={item => item.name}
+      keyExtractor={item => `${item.name}-${item.sort}`}
       showsHorizontalScrollIndicator={false}
     />
   );

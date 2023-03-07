@@ -131,7 +131,12 @@ function Order() {
                 width={31}
                 height={15}
                 borderRadius={3}
-                style={{marginBottom: 0, padding: 3}}
+                style={{
+                  marginBottom: 0,
+                  padding: 3,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
                 backgroundColor={colors.coralTwo}>
                 <Text style={{color: 'white', fontSize: 10}}>배달</Text>
               </RoundedCard>
@@ -140,7 +145,12 @@ function Order() {
                 height={15}
                 borderRadius={3}
                 backgroundColor={colors.pinkishGrey}
-                style={{padding: 3, marginBottom: 0}}>
+                style={{
+                  padding: 3,
+                  marginBottom: 0,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
                 <Text style={{color: 'white', fontSize: 10}}>포장</Text>
               </RoundedCard>
             </View>

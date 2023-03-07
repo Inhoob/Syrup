@@ -24,20 +24,6 @@ interface MainPageInfo {
   point: number;
 }
 
-const HeaderTitle = () => (
-  <>
-    <View style={{marginRight: 8}}>
-      <AddressPin width={8} height={12} />
-    </View>
-    <Text style={{fontWeight: 'bold', fontSize: 12, color: colors.warmGrey}}>
-      금천구 디지털로 173
-    </Text>
-    <View style={{marginRight: 8}}>
-      <ChevronRight width={7} height={10} />
-    </View>
-  </>
-);
-
 function Home() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
@@ -70,8 +56,30 @@ function Home() {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitleContainerStyle: {flexDirection: 'row', alignItems: 'center'},
-      headerTitle: <HeaderTitle />,
+      headerTitleContainerStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      headerTitle: () => {
+        return (
+          <>
+            <View style={{marginRight: 8}}>
+              <AddressPin width={8} height={12} />
+            </View>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 12,
+                color: colors.warmGrey,
+              }}>
+              금천구 디지털로 173
+            </Text>
+            <View style={{marginRight: 8}}>
+              <ChevronRight width={7} height={10} />
+            </View>
+          </>
+        );
+      },
     });
   }, [navigation]);
 
