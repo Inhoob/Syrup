@@ -1,3 +1,3 @@
-## Home
+## 시연
 
-<img src="https://velog.velcdn.com/images/colagom/post/c91b65e4-dcf7-4078-b704-9d3a1335b233/image.png" width="200" height="400"/>
+![](https://velog.velcdn.com/images/colagom/post/a6872abc-5c8c-4860-ada8-8228d24de61f/image.gif)
