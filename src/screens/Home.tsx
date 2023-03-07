@@ -1,10 +1,4 @@
-import {
-  View,
-  ImageBackground,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import colors from '../styles/colors';
@@ -23,10 +17,39 @@ import RoundedCard from '../components/RoundedCard';
 import {formatMoney} from '../utils/Math';
 import RoundedCardWithBackground from '../components/RoundedCardWithBackground';
 
+interface MainPageInfo {
+  grade: {img: string; name: string};
+  last_store: {img: string; name: string};
+  new_store_list: {name: string}[];
+  point: number;
+}
+
+const HeaderTitle = () => (
+  <>
+    <View style={{marginRight: 8}}>
+      <AddressPin width={8} height={12} />
+    </View>
+    <Text style={{fontWeight: 'bold', fontSize: 12, color: colors.warmGrey}}>
+      금천구 디지털로 173
+    </Text>
+    <View style={{marginRight: 8}}>
+      <ChevronRight width={7} height={10} />
+    </View>
+  </>
+);
+
 function Home() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
-  const [mainPageInfo, setMainPageInfo] = useState(null);
+  const [mainPageInfo, setMainPageInfo] = useState<MainPageInfo>(
+    {
+      grade: {img: '', name: ''},
+      last_store: {img: '', name: ''},
+      new_store_list: [],
+      point: 0,
+    },
+    // null,
+  );
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -37,7 +60,6 @@ function Home() {
       try {
         const res = await getMainPageInfo();
         setMainPageInfo(res);
-
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -49,20 +71,11 @@ function Home() {
   useEffect(() => {
     navigation.setOptions({
       headerTitleContainerStyle: {flexDirection: 'row', alignItems: 'center'},
-      headerTitle: () => (
-        <>
-          <AddressPin width={8} height={12} marginRight={8} />
-          <Text
-            style={{fontWeight: 'bold', fontSize: 12, color: colors.warmGrey}}>
-            금천구 디지털로 173
-          </Text>
-          <ChevronRight width={7} height={10} marginLeft={8} />
-        </>
-      ),
+      headerTitle: <HeaderTitle />,
     });
   }, [navigation]);
 
-  const {grade, last_store, new_store_list, point} = mainPageInfo || {};
+  const {grade, last_store, new_store_list, point} = mainPageInfo;
 
   if (!mainPageInfo) {
     return <ActivityIndicator />;
@@ -71,7 +84,6 @@ function Home() {
   if (isLoading) {
     return <ActivityIndicator />;
   }
-  console.log(new_store_list);
   return (
     <View style={styles.container}>
       <View style={styles.myPointAndLevel}>
@@ -95,7 +107,9 @@ function Home() {
             </View>
           </View>
           <RoundImage
-            source={grade.img}
+            source={
+              grade.img ? grade.img : require('../assets/menu/no_image.png')
+            }
             size={70}
             color={colors.veryLightPink2}
           />
@@ -103,7 +117,9 @@ function Home() {
       </View>
       <View style={styles.horizontal}>
         <View style={styles.heartWrapper}>
-          <Heart width={14} height={14} marginRight={5} />
+          <View style={{marginRight: 5}}>
+            <Heart width={14} height={14} />
+          </View>
           <Text style={text.heartComment}>쌓인 포인트, 할인받고 주문하자!</Text>
         </View>
         <View style={styles.toggleWrapper}>
@@ -179,7 +195,11 @@ function Home() {
 
           <RoundedCardWithBackground
             style={{width: 155, height: 156}}
-            source={{uri: last_store.img}}>
+            source={
+              last_store.img
+                ? {uri: last_store.img}
+                : require('../assets/menu/no_image.png')
+            }>
             <Text style={[text.cardTitle, {color: colors.white}]}>
               최근 주문 매장
             </Text>
@@ -217,7 +237,11 @@ function Home() {
               );
             })}
           </RoundedCard>
-          <RoundedCard width={155} height={160} backgroundColor="#f9f9f9">
+          <RoundedCard
+            width={155}
+            height={160}
+            backgroundColor="#f9f9f9"
+            onPress={() => navigation.navigate('OrderNav', {screen: 'Order'})}>
             <Text style={[text.cardTitle, {color: colors.warmGrey}]}>
               카페 추천
             </Text>
